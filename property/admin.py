@@ -7,7 +7,7 @@ class OwnersInline(admin.TabularInline):
     model = Flat.owner_flats.through
     verbose_name = 'Владельцы'
     verbose_name_plural = 'Владельцы квартиры'
-    raw_id_fields = ['owner',]
+    raw_id_fields = ['owner']
 
 
 class FlatAdmin(admin.ModelAdmin):
