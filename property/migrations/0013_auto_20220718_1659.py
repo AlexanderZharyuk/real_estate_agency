@@ -13,11 +13,9 @@ def clear_phone_number(apps, schema_editor):
                 phone_number, phonenumbers.PhoneNumberFormat.INTERNATIONAL
             )
             flat.owner_pure_phone = cleared_phone_number
-            flat.save()
         else:
             flat.owner_pure_phone = None
-            flat.save()
-
+        flat.save()
 
 class Migration(migrations.Migration):
 
