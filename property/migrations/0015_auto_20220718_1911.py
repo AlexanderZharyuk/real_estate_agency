@@ -13,15 +13,14 @@ def create_owners(apps, schema_editor):
     try:
         first_iteration = next(flats_iterator)
     except StopIteration:
-        pass
-    else:
-        for flat in chain([first_iteration], flats_iterator):
-            new_owner, _ = Owner.objects.get_or_create(
-                owner_fullname=flat.owner,
-                owners_phonenumber=flat.owners_phonenumber,
-                owner_pure_phone=flat.owner_pure_phone
-            )
-            new_owner.owner_flats.add(flat)
+        return None
+    for flat in chain([first_iteration], flats_iterator):
+        new_owner, _ = Owner.objects.get_or_create(
+            owner_fullname=flat.owner,
+            owners_phonenumber=flat.owners_phonenumber,
+            owner_pure_phone=flat.owner_pure_phone
+        )
+        new_owner.owner_flats.add(flat)
 
 
 class Migration(migrations.Migration):

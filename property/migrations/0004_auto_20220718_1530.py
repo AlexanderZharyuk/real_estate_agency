@@ -8,13 +8,13 @@ def is_new_building(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     flats_iterator = Flat.objects.all().iterator()
     try:
-        first_iterration = next(flats_iterator)
+        first_iteration = next(flats_iterator)
     except StopIteration:
-        pass
-    else:
-        for flat in chain([first_iterration], flats_iterator):
-            flat.new_building = flat.construction_year >= 2015
-            flat.save()
+        return None
+
+    for flat in chain([first_iteration], flats_iterator):
+        flat.new_building = flat.construction_year >= 2015
+        flat.save()
 
 
 class Migration(migrations.Migration):

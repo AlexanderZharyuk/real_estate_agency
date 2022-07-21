@@ -12,18 +12,18 @@ def clear_phone_number(apps, schema_editor):
     try:
         first_iterration = next(flats_iterator)
     except StopIteration:
-        pass
-    else:
-        for flat in chain([first_iterration], flats_iterator):
-            phone_number = phonenumbers.parse(flat.owners_phonenumber, 'RU')
-            if phonenumbers.is_valid_number(phone_number):
-                cleared_phone_number = phonenumbers.format_number(
-                    phone_number, phonenumbers.PhoneNumberFormat.INTERNATIONAL
-                )
-                flat.owner_pure_phone = cleared_phone_number
-            else:
-                flat.owner_pure_phone = None
-            flat.save()
+        return None
+
+    for flat in chain([first_iterration], flats_iterator):
+        phone_number = phonenumbers.parse(flat.owners_phonenumber, 'RU')
+        if phonenumbers.is_valid_number(phone_number):
+            cleared_phone_number = phonenumbers.format_number(
+                phone_number, phonenumbers.PhoneNumberFormat.INTERNATIONAL
+            )
+            flat.owner_pure_phone = cleared_phone_number
+        else:
+            flat.owner_pure_phone = None
+        flat.save()
 
 
 class Migration(migrations.Migration):
